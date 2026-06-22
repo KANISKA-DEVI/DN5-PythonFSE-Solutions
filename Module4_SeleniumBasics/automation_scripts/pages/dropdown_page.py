@@ -3,41 +3,24 @@
 # File: pages/dropdown_page.py
 # ============================================================
 
-import time
-from selenium.webdriver.common.by import By
+from selenium.webdriver.common.by  import By
+from selenium.webdriver.support.ui import Select
 from pages.base_page import BasePage
 
 
 class DropdownPage(BasePage):
+    """Page Object for .../selenium-playground/select-dropdown-demo/"""
 
     DROPDOWN = (By.ID, "select-demo")
 
     def select_day(self, day_name: str):
-        """
-        Select a day using JavaScript — avoids stale element issues
-        with Selenium's Select class on re-rendering pages.
-        """
-        self.wait_for_element(self.DROPDOWN)
-        # Use JS to set the dropdown value directly
-        self.driver.execute_script(
-            """
-            var select = arguments[0];
-            var options = select.options;
-            for (var i = 0; i < options.length; i++) {
-                if (options[i].text === arguments[1]) {
-                    select.selectedIndex = i;
-                    break;
-                }
-            }
-            """,
-            self.driver.find_element(*self.DROPDOWN),
-            day_name
-        )
-        time.sleep(1)
+        """Select a day from the dropdown by visible text."""
+        el     = self.wait_for_element(self.DROPDOWN)
+        select = Select(el)
+        select.select_by_visible_text(day_name)
 
     def get_selected_day(self) -> str:
         """Return the currently selected option text."""
-        el = self.driver.find_element(*self.DROPDOWN)
-        return self.driver.execute_script(
-            "return arguments[0].options[arguments[0].selectedIndex].text;", el
-        )
+        el     = self.wait_for_element(self.DROPDOWN)
+        select = Select(el)
+        return select.first_selected_option.text.strip()

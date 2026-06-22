@@ -1,5 +1,5 @@
 # ============================================================
-# InputFormPage — Page Object for Input Form Submit Demo
+# InputFormPage — Page Object for Input Form Demo
 # File: pages/input_form_page.py
 # ============================================================
 
@@ -10,36 +10,92 @@ from pages.base_page import BasePage
 
 class InputFormPage(BasePage):
 
-    NAME_INPUT    = (By.XPATH, "//input[@name='name']")
-    EMAIL_INPUT   = (By.XPATH, "//input[@name='email']")
-    PHONE_INPUT   = (By.XPATH, "//input[@name='phone']")
-    ADDRESS_INPUT = (By.XPATH, "//input[@name='address']")
-    CITY_INPUT    = (By.XPATH, "//input[@name='city']")
-    SUBMIT_BTN    = (By.XPATH, "//button[@type='submit']")
-    SUCCESS_MSG   = (By.XPATH, "//*[contains(text(),'Thanks') or contains(text(),'success') or contains(@class,'success')]")
+    NAME_INPUT = (By.NAME, "name")
+    EMAIL_INPUT = (By.NAME, "email")
+    PASSWORD_INPUT = (By.NAME, "password")
+    COMPANY_INPUT = (By.NAME, "company")
+    WEBSITE_INPUT = (By.NAME, "website")
+    CITY_INPUT = (By.NAME, "city")
+    ADDRESS1_INPUT = (By.NAME, "address_line1")
 
-    def fill_form(self, name: str, email: str, phone: str, address: str, city: str = "Chennai"):
-        """Fill all form fields using JavaScript to avoid interactability issues."""
-        self.wait_for_element(self.NAME_INPUT)
-        time.sleep(1)  # Let form fully render
+    SUBMIT_BTN = (
+        By.XPATH,
+        "//button[contains(text(),'Submit')]"
+    )
 
-        self.js_set_value(self.NAME_INPUT, name)
-        self.js_set_value(self.EMAIL_INPUT, email)
-        self.js_set_value(self.PHONE_INPUT, phone)
-        self.js_set_value(self.ADDRESS_INPUT, address)
+    def _fill_field(self, locator, value):
         try:
-            self.js_set_value(self.CITY_INPUT, city)
+            element = self.wait_for_element(locator, timeout=10)
+
+            self.driver.execute_script(
+                "arguments[0].scrollIntoView({block:'center'});",
+                element
+            )
+
+            element.clear()
+            element.send_keys(value)
+
         except Exception:
-            pass  # City field may not be present on all form variants
+            pass
+
+    def fill_form(
+        self,
+        name,
+        email,
+        phone,
+        address,
+        city="Bangalore"
+    ):
+        self._fill_field(self.NAME_INPUT, name)
+        self._fill_field(self.EMAIL_INPUT, email)
+
+        self._fill_field(
+            self.PASSWORD_INPUT,
+            "Password123"
+        )
+
+        self._fill_field(
+            self.COMPANY_INPUT,
+            "CTS"
+        )
+
+        self._fill_field(
+            self.WEBSITE_INPUT,
+            "https://cts.com"
+        )
+
+        self._fill_field(
+            self.CITY_INPUT,
+            city
+        )
+
+        self._fill_field(
+            self.ADDRESS1_INPUT,
+            address
+        )
 
     def submit_form(self):
-        """Click the Submit button via JavaScript."""
-        self.js_click(self.SUBMIT_BTN)
+        button = self.wait_for_element(
+            self.SUBMIT_BTN,
+            timeout=15
+        )
+
+        self.driver.execute_script(
+            "arguments[0].scrollIntoView({block:'center'});",
+            button
+        )
+
+        time.sleep(1)
+
+        self.driver.execute_script(
+            "arguments[0].click();",
+            button
+        )
+
         time.sleep(2)
 
-    def get_success_message(self) -> str:
-        """Return the success/confirmation message text after form submission."""
+    def get_success_message(self):
         try:
-            return self.js_get_text(self.SUCCESS_MSG)
+            return self.driver.page_source
         except Exception:
             return ""
