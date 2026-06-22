@@ -65,3 +65,90 @@
 ## TASK 2: Defect Lifecycle & Severity Classification
 
 ### Defect Lifecycle
+NEW
+│
+▼
+ASSIGNED  ←─────────────────────────────────────────┐
+│                                                   │
+▼                                                   │
+OPEN (Developer investigates)                        │
+│                                                   │
+├──► REJECTED (Not a bug / cannot reproduce)        │
+│                                                   │
+├──► DEFERRED (Valid bug but fixed later)           │
+│                                                   │
+▼                                                   │
+FIXED (Developer fixes and updates ticket)           │
+│                                                   │
+▼                                                   │
+RETEST (QA retests the fix)                          │
+│                                                   │
+├──► REOPEN (Fix didn't work) ─────────────────────┘
+│
+▼
+VERIFIED (QA confirms fix works)
+│
+▼
+CLOSED
+
+
+**Rejected path:** Bug is assigned → Developer finds it is not a defect (works as designed) → Marked REJECTED → QA reviews and agrees or escalates.
+
+**Deferred path:** Bug is valid but not critical for the current release → Moved to the product backlog for a future sprint → Marked DEFERRED.
+
+---
+
+### Severity and Priority Classification
+
+**(a) POST /api/courses/ returns 500 Internal Server Error for all requests**
+- **Severity:** Critical — the core feature is completely broken, system is unusable
+- **Priority:** P1 — must be fixed immediately before any release
+- **Justification:** All course creation fails. No workaround exists. Blocks all dependent features.
+
+**(b) Course names longer than 150 characters are silently truncated**
+- **Severity:** Medium — data is lost silently without error, which is unexpected behaviour
+- **Priority:** P2 — should be fixed soon; misleads users into thinking their data was saved correctly
+- **Justification:** Users are not notified of data loss. Could cause issues in reporting, but system is not broken.
+
+**(c) The /docs Swagger page has a typo in the API description**
+- **Severity:** Low — cosmetic issue, does not affect functionality
+- **Priority:** P3 — fix in the next sprint; not urgent
+- **Justification:** No functional impact. Only affects documentation readability.
+
+**(d) Login with correct credentials occasionally returns 401 on first attempt (intermittent)**
+- **Severity:** High — authentication failure, even intermittent, affects all users
+- **Priority:** P1 — must be fixed urgently despite intermittent nature
+- **Justification:** Intermittent bugs are hard to reproduce and often indicate deeper instability (race condition, session issue). Users lose trust when login randomly fails.
+
+---
+
+### Complete Defect Report for Bug (a)
+
+| Field | Value |
+|---|---|
+| **Defect ID** | BUG-001 |
+| **Title** | POST /api/courses/ returns 500 Internal Server Error for all requests |
+| **Environment** | Local development — Windows 11, Python 3.12, Django 5.0 |
+| **Build Version** | v1.0.0-beta |
+| **Severity** | Critical |
+| **Priority** | P1 |
+| **Steps to Reproduce** | 1. Start the Django development server (`python manage.py runserver`). 2. Open Postman or Thunder Client. 3. Send POST request to `http://127.0.0.1:8000/api/courses/` with body: `{"name":"Test","code":"CS999","credits":3,"department_id":1}`. 4. Observe the response. |
+| **Expected Result** | Response: 201 Created with the new course data in JSON format. |
+| **Actual Result** | Response: 500 Internal Server Error. Server console shows `IntegrityError: NOT NULL constraint failed: courses_course.department_id` |
+| **Attachments** | screenshot_of_500_error.png |
+
+---
+
+### Severity vs Priority — Key Difference
+
+**Severity** measures the **impact on the system** — how badly does this break functionality?
+
+**Priority** measures **how urgently it needs to be fixed** — how soon must we address it?
+
+**Real-world example where High Severity ≠ High Priority:**
+
+> The company's internal HR portal has a bug where the "Print Payslip" button is completely broken (High Severity — core feature is broken). However, payslips are printed only once a month, and the next print date is 28 days away. Meanwhile, a cosmetic typo exists on the CEO's public-facing dashboard presentation page (Low Severity — just a typo), but a board meeting is tomorrow.
+>
+> In this case: the CEO dashboard typo has **Low Severity but High Priority (P1)** because it must be fixed before tomorrow's meeting. The payslip bug has **High Severity but Medium Priority (P2)** because there are 28 days to fix it with no immediate impact.
+
+---

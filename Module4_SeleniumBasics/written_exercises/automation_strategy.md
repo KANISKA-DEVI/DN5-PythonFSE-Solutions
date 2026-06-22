@@ -119,3 +119,36 @@ Combines Modular (reusable page/action modules) + Data-Driven (external test dat
 ---
 
 ### Hybrid Framework Folder Structure
+course_management_tests/
+│
+├── config/
+│   └── config.ini          ← Base URL, browser, timeout settings
+│
+├── test_data/
+│   ├── login_data.csv      ← 50 username/password combinations
+│   ├── course_data.json    ← Course creation test data
+│   └── invalid_data.csv    ← Invalid input test cases
+│
+├── pages/                  ← Page Object Model classes
+│   ├── base_page.py        ← Common methods (navigate, wait, screenshot)
+│   ├── login_page.py       ← Login page interactions
+│   ├── courses_page.py     ← Course listing/creation interactions
+│   └── enrollment_page.py  ← Enrollment form interactions
+│
+├── utils/
+│   ├── driver_factory.py   ← Creates Chrome/Firefox WebDriver
+│   ├── data_reader.py      ← Reads CSV/JSON test data files
+│   └── screenshot.py       ← Captures screenshots on failure
+│
+├── tests/
+│   ├── test_login.py       ← Login tests (parameterised with CSV data)
+│   ├── test_courses.py     ← Course CRUD tests
+│   └── test_enrollment.py  ← Enrollment tests
+│
+├── reports/                ← Generated HTML test reports
+│
+├── conftest.py             ← Shared pytest fixtures (driver, base_url)
+└── requirements.txt        ← selenium, pytest, webdriver-manager, pytest-html
+
+
+---
