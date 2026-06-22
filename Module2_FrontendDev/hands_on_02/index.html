@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Portal — Responsive</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header>
+    <div class="site-name">🎓 Student Portal</div>
+    <!-- Hamburger placeholder for mobile -->
+    <div class="hamburger" id="hamburger">☰ Menu</div>
+    <nav id="main-nav">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Courses</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Grades</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO with Flexbox -->
+    <section id="hero">
+      <div class="hero-content">
+        <h1>Welcome to the Student Portal</h1>
+        <p>Manage your courses, track your grades, and stay on top of your academic journey.</p>
+        <button>Explore Courses</button>
+      </div>
+    </section>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-number">5</span>
+        <span class="stat-label">Courses Enrolled</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">3.8</span>
+        <span class="stat-label">GPA</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">6</span>
+        <span class="stat-label">Current Semester</span>
+      </div>
+    </div>
+
+    <!-- COURSES GRID -->
+    <section id="courses">
+      <h2>Available Courses</h2>
+      <div class="course-grid">
+
+        <article class="course-card">
+          <h3>Data Structures &amp; Algorithms</h3>
+          <p>Arrays, linked lists, trees, and graph algorithms.</p>
+          <span class="credits">4 Credits</span>
+        </article>
+
+        <article class="course-card">
+          <h3>Database Management Systems</h3>
+          <p>Relational databases, SQL, and schema design.</p>
+          <span class="credits">3 Credits</span>
+        </article>
+
+        <article class="course-card">
+          <h3>Object Oriented Programming</h3>
+          <p>Classes, inheritance, polymorphism, and encapsulation.</p>
+          <span class="credits">4 Credits</span>
+        </article>
+
+        <article class="course-card">
+          <h3>Circuit Theory</h3>
+          <p>Kirchhoff's laws, AC/DC analysis, and circuit design.</p>
+          <span class="credits">3 Credits</span>
+        </article>
+
+        <article class="course-card">
+          <h3>Thermodynamics</h3>
+          <p>Laws of thermodynamics, heat transfer, and energy systems.</p>
+          <span class="credits">3 Credits</span>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Student Portal — Digital Nurture 5.0</p>
+  </footer>
+
+</body>
+</html>

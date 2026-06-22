@@ -1,0 +1,246 @@
+/* ============================================================
+   Hands-On 2: Flexbox, Grid & Responsive Design
+   Mobile-First Approach: base styles = mobile, then enhance
+   ============================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ---- HEADER (Flexbox) ---- */
+header {
+  background-color: #1a73e8;
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.site-name {
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-weight: bold;
+}
+
+/* Mobile: show hamburger, hide nav */
+.hamburger {
+  display: block;
+  cursor: pointer;
+  font-size: 1rem;
+  background: rgba(255,255,255,0.2);
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+#main-nav {
+  display: none;  /* hidden on mobile */
+  width: 100%;
+}
+
+#main-nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#main-nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: block;
+}
+
+#main-nav ul li a:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* ---- HERO (Flexbox column) ---- */
+#hero {
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e8f0fe, #d2e3fc);
+  padding: 40px 24px;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  max-width: 700px;
+}
+
+.hero-content h1 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: #1a73e8;
+}
+
+.hero-content p {
+  color: #555;
+  font-size: 1rem;
+}
+
+.hero-content button {
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.hero-content button:hover {
+  background-color: #1558c0;
+}
+
+/* ---- STATS BAR (Flexbox) ---- */
+.stats-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #1a73e8;
+  color: white;
+  padding: 20px 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-width: 100px;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* ---- COURSES SECTION ---- */
+#courses {
+  padding: 40px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#courses h2 {
+  font-size: 1.6rem;
+  color: #1a73e8;
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+/* CSS GRID — mobile first: 1 column */
+.course-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.course-card {
+  background: white;
+  border: 1px solid #dde3f0;
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  align-self: stretch;
+  transition: box-shadow 0.2s;
+}
+
+.course-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.course-card h3 {
+  color: #1a73e8;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.course-card p {
+  color: #666;
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+}
+
+.credits {
+  background-color: #e8f0fe;
+  color: #1a73e8;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ---- FOOTER ---- */
+footer {
+  background-color: #1a73e8;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   MEDIA QUERIES — Tablet (768px+)
+   ============================================================ */
+@media (min-width: 768px) {
+
+  /* Show full nav, hide hamburger */
+  .hamburger { display: none; }
+
+  #main-nav {
+    display: block !important;
+    width: auto;
+  }
+
+  #main-nav ul {
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  /* 2-column grid on tablet */
+  .course-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ============================================================
+   MEDIA QUERIES — Desktop (1024px+)
+   ============================================================ */
+@media (min-width: 1024px) {
+
+  #hero {
+    padding: 80px 32px;
+  }
+
+  /* auto-fit grid — adjusts columns automatically */
+  .course-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}

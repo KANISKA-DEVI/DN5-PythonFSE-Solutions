@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Portal — JavaScript</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: Arial, sans-serif; background:#f4f6f9; color:#333; }
+    header { background:#1a73e8; color:white; padding:16px 32px; display:flex; justify-content:space-between; align-items:center; }
+    .site-name { font-size:1.5rem; font-weight:bold; }
+    main { max-width:1100px; margin:0 auto; padding:40px 24px; }
+    h2 { color:#1a73e8; margin-bottom:20px; }
+    .controls { display:flex; gap:12px; margin-bottom:24px; flex-wrap:wrap; }
+    #search-courses { padding:10px 16px; border:1px solid #ccc; border-radius:6px; font-size:1rem; flex:1; min-width:200px; }
+    #sort-btn { padding:10px 20px; background:#1a73e8; color:white; border:none; border-radius:6px; cursor:pointer; font-size:1rem; }
+    #sort-btn:hover { background:#1558c0; }
+    .course-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+    .course-card { background:white; border:1px solid #dde3f0; border-radius:10px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.07); cursor:pointer; transition:box-shadow 0.2s; }
+    .course-card:hover { box-shadow:0 4px 16px rgba(0,0,0,0.12); }
+    .course-card:focus { outline:2px solid #1a73e8; }
+    .course-card h3 { color:#1a73e8; margin-bottom:8px; }
+    .course-card p { color:#666; font-size:0.9rem; margin-bottom:10px; }
+    .credits { background:#e8f0fe; color:#1a73e8; font-size:0.8rem; font-weight:bold; padding:3px 10px; border-radius:20px; }
+    .grade-badge { float:right; background:#34a853; color:white; font-size:0.8rem; padding:3px 10px; border-radius:20px; }
+    #selected-course { margin-top:28px; background:#fff3cd; border:1px solid #ffc107; border-radius:8px; padding:16px; display:none; }
+    #selected-course h3 { color:#856404; margin-bottom:6px; }
+    #total-credits { margin-top:20px; font-weight:bold; color:#1a73e8; font-size:1.1rem; }
+    footer { background:#1a73e8; color:white; text-align:center; padding:20px; margin-top:40px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="site-name">🎓 Student Portal</div>
+    <nav>Home | Courses | Profile</nav>
+  </header>
+
+  <main>
+    <h2>My Courses</h2>
+
+    <div class="controls">
+      <input type="text" id="search-courses" placeholder="Search courses..." />
+      <button id="sort-btn">Sort by Credits ↓</button>
+    </div>
+
+    <!-- Course grid — populated by JavaScript -->
+    <div class="course-grid" id="course-grid"></div>
+
+    <!-- Selected course details -->
+    <div id="selected-course">
+      <h3 id="selected-title"></h3>
+      <p id="selected-grade"></p>
+    </div>
+
+    <!-- Total credits — updated by JS -->
+    <p id="total-credits"></p>
+  </main>
+
+  <footer>&copy; 2024 Student Portal</footer>
+
+  <!-- Load modules -->
+  <script type="module" src="app.js"></script>
+
+</body>
+</html>

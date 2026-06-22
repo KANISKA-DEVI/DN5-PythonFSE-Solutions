@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Portal — Async JS</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:Arial,sans-serif; background:#f4f6f9; color:#333; }
+    header { background:#1a73e8; color:white; padding:16px 32px; }
+    header h1 { font-size:1.4rem; }
+    main { max-width:900px; margin:0 auto; padding:32px 24px; }
+    section { margin-bottom:40px; }
+    h2 { color:#1a73e8; margin-bottom:16px; border-bottom:2px solid #e8f0fe; padding-bottom:8px; }
+    .loading { color:#1a73e8; font-style:italic; padding:16px 0; }
+    .error-box { background:#fce8e6; border:1px solid #f28b82; border-radius:8px; padding:16px; color:#c5221f; }
+    .retry-btn { margin-top:12px; padding:8px 20px; background:#c5221f; color:white; border:none; border-radius:4px; cursor:pointer; }
+    .notification-card { background:white; border-left:4px solid #1a73e8; border-radius:4px; padding:16px; margin-bottom:12px; box-shadow:0 1px 4px rgba(0,0,0,0.07); }
+    .notification-card h3 { color:#1a73e8; margin-bottom:6px; font-size:1rem; }
+    .notification-card p { color:#555; font-size:0.9rem; }
+    .user-results { background:white; padding:16px; border-radius:8px; border:1px solid #dde3f0; }
+    footer { background:#1a73e8; color:white; text-align:center; padding:16px; margin-top:40px; }
+  </style>
+  <!-- Axios via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+  <header><h1>🎓 Student Portal — Async & API Demo</h1></header>
+
+  <main>
+
+    <section id="users-section">
+      <h2>Task 1: Fetch Users (async/await)</h2>
+      <div id="users-output" class="loading">Loading users...</div>
+    </section>
+
+    <section id="notifications-section">
+      <h2>Task 2: Notifications (Fetch API)</h2>
+      <div id="notifications-container">
+        <div class="loading" id="notif-loading">Loading notifications...</div>
+      </div>
+      <div id="error-container" style="display:none;"></div>
+    </section>
+
+    <section id="axios-section">
+      <h2>Task 3: Axios Demo</h2>
+      <div id="axios-output" class="loading">Loading with Axios...</div>
+    </section>
+
+  </main>
+
+  <footer>&copy; 2024 Student Portal</footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

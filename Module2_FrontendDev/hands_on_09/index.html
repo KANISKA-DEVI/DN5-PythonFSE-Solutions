@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Portal — Accessible Version</title>
+  <!--
+    ACCESSIBILITY AUDIT NOTES (Task 1, Step 123):
+    Initial Lighthouse Accessibility Score: run Chrome DevTools > Lighthouse to get your score.
+    Issues to fix:
+    - Missing alt attributes on images
+    - Missing form labels
+    - Heading hierarchy must not skip levels
+    - Interactive elements need keyboard support
+    - Colour contrast must meet WCAG AA (4.5:1 ratio)
+  -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- SKIP LINK — allows keyboard users to skip to main content -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- HEADER with ARIA label on nav -->
+  <header role="banner">
+    <div class="site-name">🎓 Student Portal</div>
+
+    <!-- aria-label tells screen readers this is the main navigation -->
+    <nav aria-label="Main navigation">
+      <button
+        class="hamburger"
+        id="hamburger-btn"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+        aria-label="Toggle navigation menu"
+      >
+        ☰ Menu
+      </button>
+      <ul id="nav-menu" role="list">
+        <!-- aria-current="page" marks the active link -->
+        <li><a href="#" aria-current="page">Home</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#grades">Grades</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content" tabindex="-1">
+
+    <!-- HERO -->
+    <section aria-labelledby="hero-heading">
+      <h1 id="hero-heading">Welcome to the Student Portal</h1>
+      <p>Manage your courses, track your grades, and stay on top of your academic journey.</p>
+      <button type="button">Explore Courses</button>
+    </section>
+
+    <!-- SEARCH -->
+    <section id="courses" aria-labelledby="courses-heading">
+      <h2 id="courses-heading">My Courses</h2>
+
+      <!-- FORM with properly associated label -->
+      <div class="search-bar" role="search">
+        <label for="search-courses">Search courses:</label>
+        <input
+          type="search"
+          id="search-courses"
+          name="search-courses"
+          placeholder="Type to search..."
+          aria-label="Search courses"
+        />
+      </div>
+
+      <!-- Live region: announces dynamic count changes to screen readers -->
+      <p
+        id="results-count"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        Showing 3 courses
+      </p>
+
+      <!-- COURSE GRID — keyboard accessible cards -->
+      <div class="course-grid" id="course-grid" role="list">
+
+        <article
+          class="course-card"
+          role="listitem"
+          tabindex="0"
+          aria-label="Data Structures and Algorithms, 4 credits, grade A"
+        >
+          <h3>Data Structures &amp; Algorithms</h3>
+          <p>Arrays, linked lists, trees, and graph algorithms.</p>
+          <span class="credits">4 Credits</span>
+          <span class="grade-badge" aria-label="Grade: A">A</span>
+        </article>
+
+        <article
+          class="course-card"
+          role="listitem"
+          tabindex="0"
+          aria-label="Database Management Systems, 3 credits, grade B"
+        >
+          <h3>Database Management Systems</h3>
+          <p>Relational databases, SQL, and schema design.</p>
+          <span class="credits">3 Credits</span>
+          <span class="grade-badge" aria-label="Grade: B">B</span>
+        </article>
+
+        <article
+          class="course-card"
+          role="listitem"
+          tabindex="0"
+          aria-label="Object Oriented Programming, 4 credits, grade A"
+        >
+          <h3>Object Oriented Programming</h3>
+          <p>Classes, inheritance, and encapsulation.</p>
+          <span class="credits">4 Credits</span>
+          <span class="grade-badge" aria-label="Grade: A">A</span>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- PROFILE FORM with complete labels -->
+    <section id="profile" aria-labelledby="profile-heading">
+      <h2 id="profile-heading">Student Profile</h2>
+      <form aria-label="Student profile form" novalidate>
+
+        <div class="form-group">
+          <label for="student-name">Full Name <span aria-hidden="true">*</span></label>
+          <input type="text" id="student-name" name="name" required aria-required="true" />
+        </div>
+
+        <div class="form-group">
+          <label for="student-email">Email Address <span aria-hidden="true">*</span></label>
+          <input type="email" id="student-email" name="email" required aria-required="true" />
+        </div>
+
+        <div class="form-group">
+          <label for="student-semester">Semester</label>
+          <input type="number" id="student-semester" name="semester" min="1" max="8" />
+        </div>
+
+        <button type="submit">Save Profile</button>
+
+      </form>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <p>&copy; 2024 Student Portal — Digital Nurture 5.0</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
